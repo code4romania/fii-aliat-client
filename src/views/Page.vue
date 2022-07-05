@@ -8,7 +8,7 @@
         v-for="component in page.components"
         v-bind:key="component.id"
       >
-        <div class="max-w-screen-2xl mx-auto">
+        <div class="max-w-screen-2xl mx-auto bg-white">
           <div class="grid grid-cols-8 lg:gap-16">
             <div class="col-span-full">
               <div class="p-4 lg:p-8">
@@ -46,7 +46,7 @@
                     >
                       <Markdown :source="component.content" />
                     </div>
-                  </div> 
+                  </div>
 
                   <ul v-if="component.buttons" class="mb-16">
                     <li v-for="button in component.buttons" v-bind:key="button.id">

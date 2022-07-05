@@ -2,6 +2,7 @@ import { createApp } from "vue";
 
 import VueVirtualScroller from "vue-virtual-scroller"
 import VueGtag from "vue-gtag";
+import MasonryWall from '@yeger/vue-masonry-wall'
 
 import "tailwindcss/tailwind.css";
 
@@ -11,6 +12,7 @@ import router from "./router"
 createApp(App)
   .use(router)
   .use(VueVirtualScroller)
+  .use(MasonryWall)
   .use(VueGtag, {
     appName: "fii-aliat",
     pageTrackerScreenviewEnabled: true,

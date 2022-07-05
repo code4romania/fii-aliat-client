@@ -8,36 +8,27 @@
         v-for="component in page.components"
         v-bind:key="component.id"
       >
-        <div class="max-w-screen-2xl mx-auto">
-          <div class="grid grid-cols-8 gap-8 mb-8 md:mb-0">
-            <div class="col-span-full lg:col-span-4">
-              <div class="p-4 lg:p-8">
+        <div class="container mx-auto">
+          <div class="">
+              <div class="grid grid-cols-6">
+                <div class="col-span-6 bg-white pb-10 pt-6">
                 <Nav :inverted="false" />
-                <h2 class="text-5xl py-5 font-light leading-tight lg:text-7xl xl:text-8xl">
+                </div>
+                <div class="col-span-5">
+                <h2 class="bg-white text-6xl font-semibold text-purple-400 leading-tight">
                   {{component.title}}
                 </h2>
-                <div class="content-wrap">
+                </div>
+                <div class="col-span-4">
                   <Markdown
-                      class="text-2xl text-opacity-60  font-light"
+                      class="bg-white text-xl text-neutral font-light pt-6"
                       :source="component.content"
                   />
-                  <ul
-                      v-if="component.buttons"
-                      class="mb-8 md:hidden"
-                  >
-                    <li v-for="button in component.buttons" v-bind:key="button.id">
-                      <router-link
-                          v-if="button.href"
-                          :to="button.href"
-                          class="inline-block mb-2 py-3 text-2xl font-light lg:text-xl xl:text-2xl"
-                      ><span class="underline">{{ button.text }}</span></router-link
-                      >
-                    </li>
-                  </ul>
                 </div>
+                <div class="col-span-3">
                 <ul
                   v-if="component.buttons"
-                  class="mb-8"
+                  class="bg-white pt-8"
                 >
                   <li v-for="button in component.buttons" v-bind:key="button.id">
                     <router-link
@@ -48,12 +39,8 @@
                     >
                   </li>
                 </ul>
-                <MadeBy />
+                </div>
               </div>
-            </div>
-            <div class="col-span-full lg:col-span-4">
-
-            </div>
           </div>
         </div>
       </div>

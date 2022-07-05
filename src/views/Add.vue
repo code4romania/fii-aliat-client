@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="max-w-screen-2xl mx-auto">
+    <div class="max-w-screen-2xl mx-auto bg-white">
       <div class="p-4 lg:p-8">
         <Nav />
         <Heading :level="1">
