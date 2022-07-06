@@ -11,7 +11,7 @@ import Page from "../views/Page.vue";
 const routes = [
   {
     path: "/",
-    name: "Vieți pierdute în România",
+    name: "Fii aliat",
     component: Home,
   },
   {
