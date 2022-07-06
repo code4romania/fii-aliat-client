@@ -7,10 +7,10 @@
         </div>
       </div>
     </div>
-    <div class="absolute left-0 right-0 md:right-1/3 lg:right-1/2 top-0 bottom-0">
+    <div class="absolute left-0 right-0 md:right-1/3 lg:right-1/3 top-0 bg-white">
       <router-view v-slot="{ Component }">
         <transition name="route" mode="out-in">
-          <component class="relative md:left-1/4 bg-white px-8" :is="Component"></component>
+          <component class="max-w-3xl ml-auto" :is="Component"></component>
         </transition>
       </router-view>
     </div>

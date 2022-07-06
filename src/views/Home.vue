@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-64 lg:pb-0">
     <div v-if="loading" class="my-16">
       <Spinner />
     </div>
@@ -9,7 +9,7 @@
         v-bind:key="component.id"
       >
         <div class="container mx-auto">
-          <div class="">
+          <div class="pb-20">
               <div class="grid grid-cols-6">
                 <div class="col-span-6 bg-white pb-10 pt-6">
                 <Nav :inverted="false" />
