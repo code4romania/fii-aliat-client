@@ -172,11 +172,7 @@ export default {
 
       const rows =
         this.stories.length > 0 &&
-        victimsCount &&
-        [
-          ...shuffle([...list, ...this.placeholdersList(list.length * 20)]),
-          ...this.placeholdersList(victimsCount - list.length * 10)
-        ].reduce((result, item, i) => {
+        victimsCount && shuffle([...list]).reduce((result, item, i) => {
           const rowIndex = Math.floor(i / 2);
           if (result && result[rowIndex]) {
             result[rowIndex].stories.push(item);

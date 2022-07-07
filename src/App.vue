@@ -3,7 +3,7 @@
     <div class="fixed top-0 left-0 right-0 bottom-0">
       <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item" origin-left="false">
         <div v-masonry-tile class="item" v-for="(item, index) in assetsIds">
-          <a :href="'/message/' + item"><img :src="'/assets/' + item + '.png'" :height="(item * 2).toString() + 'px'" /></a>
+          <a :href="'/mesaje/' + item"><img :src="'/assets/' + item + '.png'" :height="(item * 2).toString() + 'px'" /></a>
         </div>
       </div>
     </div>
