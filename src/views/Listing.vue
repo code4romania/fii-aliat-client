@@ -165,7 +165,7 @@ export default {
         address: `${story.city}, ${story.county}`,
         image: `https://picsum.photos/id/1005/900/450`,
         // image: `${story.image.url}`,
-        url: `/poveste/${story.id}`,
+        url: `/mesaje/${story.id}`,
         isExternal: story.isExternal,
         externalLink: story.externalLink
       }));

@@ -12,7 +12,7 @@
       {{ title }}
     </router-link>
 
-    <div class="mb-8 text-2xl font-thin text-white text-opacity-80 content-wrap">
+    <div class="mb-8 text-2xl font-thin content-wrap">
       <Markdown :source="content" />
     </div>
 
