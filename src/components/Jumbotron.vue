@@ -16,10 +16,6 @@
       <Markdown :source="content" />
     </div>
 
-    <div class="mb-8">
-      <Switch :list="list" :gallery="gallery" @switchView="onSwitchView" />
-    </div>
-
     <ul v-if="buttons" class="mb-8 lg:mb-16">
       <li v-for="button in buttons" v-bind:key="button.id">
         <router-link
@@ -30,8 +26,6 @@
         >
       </li>
     </ul>
-
-    <MadeBy class="hidden lg:block" />
   </div>
 </template>
 

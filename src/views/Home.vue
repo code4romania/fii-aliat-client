@@ -13,7 +13,7 @@
           </div>
 
           <div
-            class="flex items-center justify-center flex-1 max-w-2xl px-4 py-8 mx-auto md:px-8 md:py-16"
+            class="flex justify-center flex-1 max-w-2xl px-4 py-8 mx-auto md:px-8 md:py-16"
           >
             <div v-for="component in page.components" v-bind:key="component.id">
               <h2 class="text-6xl font-semibold leading-tight text-purple-400">
