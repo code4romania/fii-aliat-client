@@ -1,18 +1,25 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <div class="fixed top-0 left-0 right-0 bottom-0">
-      <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item" origin-left="false">
-        <div v-masonry-tile class="item" v-for="(item, index) in assetsIds">
-          <a :href="'/mesaje/' + item"><img :src="'/assets/' + item + '.png'" :height="(item * 2).toString() + 'px'" /></a>
+  <div class="flex flex-col sm:h-screen sm:overflow-hidden">
+    <div class="inset-x-0 top-0 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6">
+      <div class="inset-x-0 top-0 col-span-2 bg-white md:col-span-3 md:row-span-4 xl:row-span-3">
+        <router-view v-slot="{ Component }">
+          <transition name="route" mode="out-in">
+            <component class="max-w-3xl ml-auto" :is="Component"></component>
+          </transition>
+        </router-view>
+      </div>
+
+      <div v-for="(item, index) in assetsIds" :key="index" class="aspect-square">
+        <a v-if="index % Math.ceil(Math.random() * 15)  === 0" :href="'/mesaje/' + item">
+          <img :src="'/assets/' + item + '.png'" :height="(item * 2).toString() + 'px'" class="w-full" loading="lazy" />
+        </a>
+
+        <div v-else class="grid grid-cols-2 aspect-square">
+          <a v-for="(item, index) in assetsIds.sort(() => 0.5 - Math.random() ).slice(0, 4)" :key="index" :href="'/mesaje/' + item" class="aspect-square">
+            <img :src="'/assets/' + item + '.png'" :height="(item * 2).toString() + 'px'" class="w-full" loading="lazy" />
+          </a>
         </div>
       </div>
-    </div>
-    <div class="absolute left-0 right-0 md:right-1/3 lg:right-1/3 top-0 bg-white">
-      <router-view v-slot="{ Component }">
-        <transition name="route" mode="out-in">
-          <component class="max-w-3xl ml-auto" :is="Component"></component>
-        </transition>
-      </router-view>
     </div>
   </div>
 </template>

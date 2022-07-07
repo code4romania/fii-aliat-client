@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-64 lg:pb-0">
+  <div class="">
     <div v-if="loading" class="my-16">
       <Spinner />
     </div>
@@ -11,30 +11,30 @@
         <div class="container mx-auto">
           <div class="pb-20">
               <div class="grid grid-cols-6">
-                <div class="col-span-6 bg-white pb-10 pt-6">
+                <div class="col-span-6 pt-6 pb-10 bg-white">
                 <Nav :inverted="false" />
                 </div>
                 <div class="col-span-5">
-                <h2 class="bg-white text-6xl font-semibold text-purple-400 leading-tight">
+                <h2 class="text-6xl font-semibold leading-tight text-purple-400 bg-white">
                   {{component.title}}
                 </h2>
                 </div>
                 <div class="col-span-4">
                   <Markdown
-                      class="bg-white text-xl text-neutral font-light pt-6"
+                      class="pt-6 text-xl font-light bg-white text-neutral"
                       :source="component.content"
                   />
                 </div>
                 <div class="col-span-3">
                 <ul
                   v-if="component.buttons"
-                  class="bg-white pt-8"
+                  class="pt-8 bg-white"
                 >
                   <li v-for="button in component.buttons" v-bind:key="button.id">
                     <router-link
                       v-if="button.href"
                       :to="button.href"
-                      class="inline-block mb-2 py-3 text-2xl font-light lg:text-xl xl:text-2xl"
+                      class="inline-block py-3 mb-2 text-2xl font-light lg:text-xl xl:text-2xl"
                       ><span class="underline">{{ button.text }}</span></router-link
                     >
                   </li>
