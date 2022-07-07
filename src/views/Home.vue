@@ -1,49 +1,66 @@
 <template>
-  <div class="">
+  <div>
     <div v-if="loading" class="my-16">
       <Spinner />
     </div>
-    <div v-if="page">
-      <div
-        v-for="component in page.components"
-        v-bind:key="component.id"
-      >
-        <div class="container mx-auto">
-          <div class="pb-20">
-              <div class="grid grid-cols-6">
-                <div class="col-span-6 pt-6 pb-10 bg-white">
-                <Nav :inverted="false" />
-                </div>
-                <div class="col-span-5">
-                <h2 class="text-6xl font-semibold leading-tight text-purple-400 bg-white">
-                  {{component.title}}
-                </h2>
-                </div>
-                <div class="col-span-4">
-                  <Markdown
-                      class="pt-6 text-xl font-light bg-white text-neutral"
-                      :source="component.content"
-                  />
-                </div>
-                <div class="col-span-3">
-                <ul
-                  v-if="component.buttons"
-                  class="pt-8 bg-white"
-                >
-                  <li v-for="button in component.buttons" v-bind:key="button.id">
-                    <router-link
-                      v-if="button.href"
-                      :to="button.href"
-                      class="inline-block py-3 mb-2 text-2xl font-light lg:text-xl xl:text-2xl"
-                      ><span class="underline">{{ button.text }}</span></router-link
+    <div v-if="page" class="flex flex-col sm:h-screen sm:overflow-hidden">
+      <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6">
+        <div class="col-span-2 bg-white md:col-span-3 md:row-span-4 xl:row-span-3">
+          <div
+            v-for="component in page.components"
+            v-bind:key="component.id"
+          >
+            <div class="container mx-auto">
+              <div class="pb-20">
+                  <div class="grid grid-cols-6">
+                    <div class="col-span-6 pt-6 pb-10 bg-white">
+                    <Nav :inverted="false" />
+                    </div>
+                    <div class="col-span-5">
+                    <h2 class="text-6xl font-semibold leading-tight text-purple-400 bg-white">
+                      {{component.title}}
+                    </h2>
+                    </div>
+                    <div class="col-span-4">
+                      <Markdown
+                          class="pt-6 text-xl font-light bg-white text-neutral"
+                          :source="component.content"
+                      />
+                    </div>
+                    <div class="col-span-3">
+                    <ul
+                      v-if="component.buttons"
+                      class="pt-8 bg-white"
                     >
-                  </li>
-                </ul>
-                </div>
+                      <li v-for="button in component.buttons" v-bind:key="button.id">
+                        <router-link
+                          v-if="button.href"
+                          :to="button.href"
+                          class="inline-block py-3 mb-2 text-2xl font-light lg:text-xl xl:text-2xl"
+                          ><span class="underline">{{ button.text }}</span></router-link
+                        >
+                      </li>
+                    </ul>
+                    </div>
+                  </div>
               </div>
+            </div>
           </div>
         </div>
-      </div>
+
+
+          <div v-for="(item, index) in assetsIds" :key="index" class="aspect-square">
+            <a v-if="index % Math.ceil(Math.random() * 15)  === 0" :href="'/mesaje/' + item">
+              <img :src="'/assets/' + item + '.png'" :height="(item * 2).toString() + 'px'" class="w-full" loading="lazy" />
+            </a>
+
+            <div v-else class="grid grid-cols-2 aspect-square">
+              <a v-for="(item, index) in assetsIds.sort(() => 0.5 - Math.random() ).slice(0, 4)" :key="index" :href="'/mesaje/' + item" class="aspect-square">
+                <img :src="'/assets/' + item + '.png'" :height="(item * 2).toString() + 'px'" class="w-full" loading="lazy" />
+              </a>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </template>
@@ -69,7 +86,8 @@ export default {
     error: null,
     page: {
       components: []
-    }
+    },
+    assetsIds: [...Array(50)].map((x, i)=> ++i)
   }),
   beforeRouteEnter(to, from, next) {
     next(vm => vm.fetchData());
