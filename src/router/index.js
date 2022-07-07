@@ -15,13 +15,13 @@ const routes = [
     component: Home,
   },
   {
-    path: "/povesti",
-    name: "Povești",
+    path: "/mesaje",
+    name: "Mesaje",
     component: Listing,
   },
   {
-    path: "/poveste/:storyId?",
-    name: "Poveste",
+    path: "/mesaje/:storyId?",
+    name: "Mesaj",
     component: Listing,
   },
   {

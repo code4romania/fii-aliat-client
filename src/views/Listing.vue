@@ -155,8 +155,7 @@ export default {
       );
     },
     storiesList: function() {
-      const victimsCount =
-        this.page && +this.page.components[0].victimsCount.victims;
+      const victimsCount = 54.223; // TODO: fix this
 
       const list = this.stories.map(story => ({
         id: story.id,
@@ -223,9 +222,6 @@ export default {
         this.banners = banners;
       }
     });
-
-    document.body.classList.remove("bg-white", "text-black");
-    document.body.classList.add("bg-black", "text-white");
   },
   methods: {
     isShort() {
