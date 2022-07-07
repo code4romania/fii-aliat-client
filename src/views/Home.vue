@@ -140,7 +140,9 @@ export default {
       });
     },
     onClick(){
-      console.log('--->');
+      api.post('/counter/increment',null ).then((err, res)=> {
+        location.reload()
+      })
     }
   },
 };
