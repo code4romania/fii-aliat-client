@@ -8,11 +8,11 @@ const shuffle = (array) => {
 
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
-      array[currentIndex]
+      array[currentIndex],
     ];
   }
 
   return array;
-}
+};
 
 export default shuffle;

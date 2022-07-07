@@ -3,11 +3,11 @@
     <Nav />
     <router-link
       to="/"
-      class="relative inline-block my-5 py-3 pl-14 text-7xl font-light"
+      class="relative inline-block py-3 my-5 font-light pl-14 text-7xl"
       v-if="title"
     >
       <span
-        class="absolute left-2 top-0 bottom-0 my-auto transform rotate-45 w-9 h-9 border-l-2 border-b-2 border-white"
+        class="absolute top-0 bottom-0 my-auto transform rotate-45 border-b-2 border-l-2 border-white left-2 w-9 h-9"
       ></span>
       {{ title }}
     </router-link>
@@ -36,39 +36,39 @@
 </template>
 
 <script>
-import Markdown from 'vue3-markdown-it';
+    import Markdown from 'vue3-markdown-it';
 
-import MadeBy from "@/components/MadeBy";
-import Nav from "@/components/Nav";
-import Switch from "@/components/Switch";
+    import MadeBy from '@/components/MadeBy';
+    import Nav from '@/components/Nav';
+    import Switch from '@/components/Switch';
 
-export default {
-  name: "Jumbotron",
-  components: {
-    Markdown,
-    Switch,
-    MadeBy,
-    Nav
-  },
-  props: {
-    title: {
-      type: String
-    },
-    content: {
-      type: String
-    },
-    buttons: {
-      type: Array
-    },
-    onSwitchView: {
-      type: Function
-    },
-    list: {
-      type: Boolean
-    },
-    gallery: {
-      type: Boolean
-    }
-  }
-};
+    export default {
+      name: 'Jumbotron',
+      components: {
+        Markdown,
+        Switch,
+        MadeBy,
+        Nav,
+      },
+      props: {
+        title: {
+          type: String,
+        },
+        content: {
+          type: String,
+        },
+        buttons: {
+          type: Array,
+        },
+        onSwitchView: {
+          type: Function,
+        },
+        list: {
+          type: Boolean,
+        },
+        gallery: {
+          type: Boolean,
+        },
+      },
+    };
 </script>

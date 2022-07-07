@@ -3,13 +3,13 @@
 </template>
 
 <script>
-  export default {
-    name: 'Spinner'
-  }
+    export default {
+      name: 'Spinner',
+    };
 </script>
 
 <style scoped>
-  .loader {
-    color: #ffffff;
-  }
+    .loader {
+      color: #ffffff;
+    }
 </style>

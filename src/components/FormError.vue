@@ -1,11 +1,11 @@
 <template>
-  <div class="text-red-400  text-xs p-1 mt-2">
+  <div class="p-1 mt-2 text-xs text-red-400">
     <slot></slot>
   </div>
 </template>
 
 <script>
-export default {
-  name: "FormError"
-};
+    export default {
+      name: 'FormError',
+    };
 </script>

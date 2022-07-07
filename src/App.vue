@@ -7,28 +7,26 @@
 </template>
 
 <script>
-export default {
-  name: 'App',
-  data: () => ({
-    assetsIds: [...Array(50)].map((x, i)=> ++i)
-  })
-}
+    export default {
+      name: 'App',
+      data: () => ({
+        assetsIds: [...Array(50)].map((x, i) => ++i),
+      }),
+    };
 </script>
 
 
 <style>
+    .route-enter-from,
+    .route-leave-to {
+      opacity: 0;
+    }
 
-.route-enter-from,
-.route-leave-to {
-  opacity: 0;
-}
+    .route-enter-active {
+      transition: opacity 0.6s ease;
+    }
 
-.route-enter-active {
-  transition: opacity 0.6s ease;
-}
-
-.route-leave-active {
-  transition: opacity 0.2s ease;
-}
-
+    .route-leave-active {
+      transition: opacity 0.2s ease;
+    }
 </style>

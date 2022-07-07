@@ -19,6 +19,7 @@
     "vue3-markdown-it": "^1.0.9"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.3",
     "@vue/cli-plugin-router": "~5.0.8",
     "@vue/cli-service": "~5.0.8",
     "@vue/compiler-sfc": "^3.0.0",

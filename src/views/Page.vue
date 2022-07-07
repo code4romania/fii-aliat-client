@@ -4,19 +4,16 @@
       <Spinner />
     </div>
     <div v-if="page">
-      <div
-        v-for="component in page.components"
-        v-bind:key="component.id"
-      >
-        <div class="max-w-screen-2xl mx-auto bg-white">
+      <div v-for="component in page.components" v-bind:key="component.id">
+        <div class="mx-auto bg-white max-w-screen-2xl">
           <div class="grid grid-cols-8 lg:gap-16">
             <div class="col-span-full">
               <div class="p-4 lg:p-8">
-                <div class="flex justify-between items-center mb-8">
-                  <Nav :inverted="false"/>
+                <div class="flex items-center justify-between mb-8">
+                  <Nav :inverted="false" />
                   <a
                     @click="$router.go(-1)"
-                    class="cursor-pointer relative w-12 h-12"
+                    class="relative w-12 h-12 cursor-pointer"
                   >
                     <span
                       class="absolute top-0 left-0 bottom-0 right-0 m-auto transform origin-center block w-full h-0.5 bg-black rotate-45"
@@ -29,8 +26,10 @@
                 </div>
 
                 <div class="max-w-6xl mb-32">
-                  <div class="relative block w-full leading-tight font-light mt-5 pt-3 mb-8 pb-0 text-2xl lg:text-4xl">
-                    {{component.title}}
+                  <div
+                    class="relative block w-full pt-3 pb-0 mt-5 mb-8 text-2xl font-light leading-tight lg:text-4xl"
+                  >
+                    {{ component.title }}
                   </div>
 
                   <MadeBy
@@ -41,24 +40,30 @@
 
                   <div class="mb-8">
                     <div
-                      :class="{ 'text-lg lg:text-2xl': this.$route.meta.featured }"
-                      class="content-wrap text-base font-thin"
+                      :class="{
+                        'text-lg lg:text-2xl': this.$route.meta.featured,
+                      }"
+                      class="text-base font-thin content-wrap"
                     >
                       <Markdown :source="component.content" />
                     </div>
                   </div>
 
                   <ul v-if="component.buttons" class="mb-16">
-                    <li v-for="button in component.buttons" v-bind:key="button.id">
+                    <li
+                      v-for="button in component.buttons"
+                      v-bind:key="button.id"
+                    >
                       <router-link
                         v-if="button.href"
                         :to="button.href"
                         class="inline-block py-3 text-2xl font-light lg:text-xl xl:text-2xl"
-                        ><span class="underline">{{ button.text }}</span></router-link
+                        ><span class="underline">{{
+                          button.text
+                        }}</span></router-link
                       >
                     </li>
                   </ul>
-
                 </div>
               </div>
             </div>
@@ -70,62 +75,62 @@
 </template>
 
 <script>
-import Markdown from 'vue3-markdown-it';
+    import Markdown from 'vue3-markdown-it';
 
-import api from "@/api";
-import MadeBy from "@/components/MadeBy.vue";
-import Spinner from "@/components/Spinner.vue";
-import Nav from "@/components/Nav";
+    import api from '@/api';
+    import MadeBy from '@/components/MadeBy.vue';
+    import Spinner from '@/components/Spinner.vue';
+    import Nav from '@/components/Nav';
 
-export default {
-  name: "About",
-  components: {
-    Markdown,
-    MadeBy,
-    Spinner,
-    Nav
-  },
-  data: () => ({
-    loading: false,
-    error: null,
-    page: {
-      components: []
-    }
-  }),
-  beforeRouteEnter(to, from, next) {
-    next(vm => vm.fetchData());
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.fetchData();
-    next();
-  },
-  mounted() {
-    document.body.classList.remove("bg-black", "text-white");
-    document.body.classList.add("bg-white", "text-black");
-  },
-  methods: {
-    fetchData() {
-      this.error = this.page = null;
-      this.loading = true;
-      api.getPage(this.$route.meta.slug, (err, page) => {
-        this.loading = false;
-        if (err) {
-          this.error = err.toString();
-        } else {
-          this.page = page;
-        }
-      });
-    }
-  }
-}
+    export default {
+      name: 'About',
+      components: {
+        Markdown,
+        MadeBy,
+        Spinner,
+        Nav,
+      },
+      data: () => ({
+        loading: false,
+        error: null,
+        page: {
+          components: [],
+        },
+      }),
+      beforeRouteEnter(to, from, next) {
+        next((vm) => vm.fetchData());
+      },
+      beforeRouteUpdate(to, from, next) {
+        this.fetchData();
+        next();
+      },
+      mounted() {
+        document.body.classList.remove('bg-black', 'text-white');
+        document.body.classList.add('bg-white', 'text-black');
+      },
+      methods: {
+        fetchData() {
+          this.error = this.page = null;
+          this.loading = true;
+          api.getPage(this.$route.meta.slug, (err, page) => {
+            this.loading = false;
+            if (err) {
+              this.error = err.toString();
+            } else {
+              this.page = page;
+            }
+          });
+        },
+      },
+    };
 </script>
 
 <style>
-.content-wrap p {
-  margin-bottom: 32px;
-}
-.content-wrap a {
-  text-decoration: underline;
-}
+    .content-wrap p {
+      margin-bottom: 32px;
+    }
+    .content-wrap a {
+      text-decoration: underline;
+    }
 </style>
 
