@@ -59,7 +59,7 @@
           <div v-else class="grid grid-cols-2 aspect-square">
             <a
               v-for="(item, index) in assetsIds
-                .sort(() => 0.5 - Math.random())
+                // .sort(() => 0.5 - Math.random())
                 .slice(0, 4)"
               :key="index"
               :href="'/mesaje/' + item"
