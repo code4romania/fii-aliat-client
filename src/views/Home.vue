@@ -44,35 +44,28 @@
           :key="index"
           class="aspect-square"
         >
-          <a
-            v-if="index % Math.ceil(Math.random() * 15) === 0"
-            :href="'/mesaje/' + item"
-          >
+          <a v-if="!item.children" :href="'/mesaje/' + item.id">
             <img
-              :src="'/assets/' + item + '.png'"
+              :src="item.imageUrl"
               :height="(item * 2).toString() + 'px'"
               class="w-full"
               loading="lazy"
             />
           </a>
-
-          <div v-else class="grid grid-cols-2 aspect-square">
-            <a
-              v-for="(item, index) in assetsIds
-                // .sort(() => 0.5 - Math.random())
-                .slice(0, 4)"
-              :key="index"
-              :href="'/mesaje/' + item"
-              class="aspect-square"
-            >
-              <img
-                :src="'/assets/' + item + '.png'"
-                :height="(item * 2).toString() + 'px'"
-                class="w-full"
-                loading="lazy"
-              />
-            </a>
-          </div>
+            <div v-else class="grid grid-cols-2 aspect-square">
+              <a
+                v-for="child in item.children"
+                :key="child.id"
+                :href="'/mesaje/' + child.id"
+                class="aspect-square"
+              >
+                <img
+                  :src="child.imageUrl"
+                  class="w-full"
+                  loading="lazy"
+                />
+              </a>
+            </div>
         </div>
       </div>
     </div>
@@ -80,53 +73,67 @@
 </template>
 
 <script>
-    import Markdown from 'vue3-markdown-it';
+import Markdown from 'vue3-markdown-it';
 
-    import api from '@/api';
-    import MadeBy from '@/components/MadeBy';
-    import Nav from '@/components/Nav';
-    import Spinner from '@/components/Spinner';
+import api from '@/api';
+import MadeBy from '@/components/MadeBy';
+import Nav from '@/components/Nav';
+import Spinner from '@/components/Spinner';
 
-    export default {
-      name: 'Home',
-      components: {
-        Markdown,
-        MadeBy,
-        Nav,
-        Spinner,
-      },
-      data: () => ({
-        loading: false,
-        error: null,
-        page: {
-          components: [],
-        },
-        assetsIds: [...Array(50)].map((x, i) => ++i),
-      }),
-      beforeRouteEnter(to, from, next) {
-        next((vm) => vm.fetchData());
-      },
-      beforeRouteUpdate(to, from, next) {
-        this.fetchData();
-        next();
-      },
-      // mounted() {
-      //   document.body.classList.remove("bg-white", "text-black");
-      //   document.body.classList.add("bg-black", "text-white");
-      // },
-      methods: {
-        fetchData() {
-          this.error = this.page = null;
-          this.loading = true;
-          api.getPage('home', (err, page) => {
-            this.loading = false;
-            if (err) {
-              this.error = err.toString();
-            } else {
-              this.page = page;
-            }
-          });
-        },
-      },
-    };
+export default {
+  name: 'Home',
+  components: {
+    Markdown,
+    MadeBy,
+    Nav,
+    Spinner,
+  },
+  data: () => ({
+    loading: false,
+    error: null,
+    page: {
+      components: [],
+    },
+    assetsIds: [...Array(50)].map((x, i) => {
+      const index = i + 1;
+      if(index % Math.ceil(Math.random() * 2) === 0){
+        return { id: index, children:
+          [...Array(4)].map((x, i)=>{
+            const childIndex = Math.ceil(Math.random() * 10) + i * 10 + 1;
+            return ({
+              id: childIndex,
+              imageUrl: `/assets/${childIndex}.png`
+            })
+          })
+          }
+      }
+      return { id: index, imageUrl: `/assets/${index}.png` };
+    }),
+  }),
+  beforeRouteEnter(to, from, next) {
+    next((vm) => vm.fetchData());
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.fetchData();
+    next();
+  },
+  // mounted() {
+  //   document.body.classList.remove("bg-white", "text-black");
+  //   document.body.classList.add("bg-black", "text-white");
+  // },
+  methods: {
+    fetchData() {
+      this.error = this.page = null;
+      this.loading = true;
+      api.getPage('home', (err, page) => {
+        this.loading = false;
+        if (err) {
+          this.error = err.toString();
+        } else {
+          this.page = page;
+        }
+      });
+    },
+  },
+};
 </script>
