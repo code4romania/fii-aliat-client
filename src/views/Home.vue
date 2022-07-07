@@ -23,7 +23,10 @@
                 :source="component.content"
                 class="max-w-2xl prose md:prose-lg lg:prose-xl"
               />
-              <ul v-if="component.buttons" class="pt-8 bg-white">
+              <div class="pt-8">
+                <PrideButton @click.once="onClick"/>
+              </div>
+              <ul v-if="component.buttons" class="pt-4 bg-white">
                 <li v-for="button in component.buttons" v-bind:key="button.id">
                   <router-link
                     v-if="button.href"
@@ -79,6 +82,7 @@ import api from '@/api';
 import MadeBy from '@/components/MadeBy';
 import Nav from '@/components/Nav';
 import Spinner from '@/components/Spinner';
+import PrideButton from '@/components/PrideButton'
 
 export default {
   name: 'Home',
@@ -87,6 +91,7 @@ export default {
     MadeBy,
     Nav,
     Spinner,
+    PrideButton
   },
   data: () => ({
     loading: false,
@@ -134,6 +139,9 @@ export default {
         }
       });
     },
+    onClick(){
+      console.log('--->');
+    }
   },
 };
 </script>
