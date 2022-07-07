@@ -25,8 +25,8 @@ const routes = [
     component: Listing,
   },
   {
-    path: "/adauga-o-poveste",
-    name: "Adaugă o poveste",
+    path: "/trimite-un-mesaj",
+    name: "Trimite un mesaj",
     component: Add,
   },
   {
