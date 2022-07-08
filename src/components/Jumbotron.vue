@@ -9,9 +9,7 @@
       {{ title }}
     </router-link>
 
-    <div class="mb-8 text-2xl font-thin content-wrap">
-      <Markdown :source="content" />
-    </div>
+    <Markdown :source="content" class="mb-8 prose md:prose-lg" />
 
     <ul v-if="buttons" class="mb-8 lg:mb-16">
       <li v-for="button in buttons" v-bind:key="button.id">
