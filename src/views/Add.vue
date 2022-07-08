@@ -1,39 +1,44 @@
 <template>
   <div>
-    <div class="mx-auto bg-white max-w-screen-2xl">
+    <div class="container px-4 mx-auto">
       <div class="p-4 lg:p-8">
         <Nav :inverted="false" />
 
-        <Heading :level="1">
+        <h1
+          class="relative block py-3 mt-16 mb-4 text-2xl font-light sm:text-3xl md:text-4xl"
+        >
           <span v-if="!isStorySent && counter">
             Îți mulțumim! De acum suntem
-            <span class="block text-purple-400 mt-2">{{ counter }} aliați</span>
+            <span class="block mt-2 text-purple-400">{{ counter }} aliați</span>
           </span>
           <span v-if="!isStorySent && !counter"
             >Trimite un mesaj de susținere</span
           >
           <span v-if="isStorySent"
             >Mulțumim.
-            <span class="block text-purple-400 mt-2"
+            <span class="block mt-2 text-purple-400"
               >Ai trimis mesajul cu succes</span
             >
           </span>
-        </Heading>
+        </h1>
 
-        <p v-if="!isStorySent" class="max-w-4xl mb-10 text-lg font-light">
-          Cuvintele îi poveștile vindecă și dau putere. Îți mulțumim că ni te-ai
-          alăturat printr-un simplu click. Orice mesaj ne ajută și să mergem mai
-          departe la bine și la rău, împreună. Transmite un mesaj de încurajare
-          și de solidaritate către comunitatea LGBTQIA+ anonim sau semnat pentru
-          a le da curaj.
-        </p>
+        <div v-if="!isStorySent" class="mb-10 prose md:prose-lg">
+          <p>
+            Cuvintele și poveștile vindecă și dau putere. Îți mulțumim că ni
+            te-ai alăturat printr-un simplu click. Orice mesaj ne ajută și să
+            mergem mai departe la bine și la rău, împreună. Transmite un mesaj
+            de încurajare și de solidaritate către comunitatea LGBTQ+ anonim sau
+            semnat pentru a le da curaj.
+          </p>
+        </div>
+
         <div v-if="isStorySent" class="max-w-xl mb-10">
-          <div class="text-lg">
-            <div class="mb-4">
+          <div class="mb-4 prose md:prose-lg">
+            <p>
               Imediat ce va fi aprobat de un moderator mesajul tău va fi
               publicat pe platforma FiiAliat. Ne bucurăm că ești alături de
               comunitatea LGBTQ+.
-            </div>
+            </p>
           </div>
           <ul class="mt-12 mb-8">
             <li>
@@ -54,6 +59,7 @@
             </li>
           </ul>
         </div>
+
         <form
           v-else
           ref="form"
@@ -106,7 +112,12 @@
               name="terms"
               v-model="story.agreeTerms"
               :error="errors.agreeTerms"
-              >Sunt de acord cu
+            >
+              Sunt de acord cu
+              <router-link to="/politica-de-confidentialitate" class="underline"
+                >politica de confidențialitate</router-link
+              >
+              și
               <router-link to="/termeni-si-conditii" class="underline"
                 >termenii și condițiile</router-link
               >
