@@ -3,6 +3,7 @@ import { createApp } from 'vue';
 import VueVirtualScroller from 'vue-virtual-scroller';
 import VueGtag from 'vue-gtag';
 import { VueMasonryPlugin } from 'vue-masonry';
+import VueSocialSharing from 'vue-social-sharing';
 
 import 'tailwindcss/tailwind.css';
 
@@ -13,6 +14,7 @@ createApp(App)
   .use(router)
   .use(VueVirtualScroller)
   .use(VueMasonryPlugin)
+  .use(VueSocialSharing)
   .use(
     VueGtag,
     {

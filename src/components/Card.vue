@@ -14,7 +14,17 @@
           <img :src="'/assets/' + item.id % 55 + '.png'" class="w-20 mx-auto rounded-full" />
           <div class="bg-neutral-100 p-8 mt-4 text-neutral-500">
             <p>{{item.content}}</p>
-          <div class="bg-blue-500 mt-8 text-white text-center rounded-lg py-2">Share on social media</div>
+            <ShareNetwork
+              class="block bg-blue-500 mt-8 text-white text-center rounded-lg py-2"
+              network="facebook"
+              :url="'https://fiialiat.ro/mesaje/' + item.id"
+              title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
+              description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
+              quote="The hot reload is so fast it\'s near instant. - Evan You"
+              hashtags="vuejs,vite"
+            >
+              Share on social media
+            </ShareNetwork>
           </div>
       </div>
   </div>

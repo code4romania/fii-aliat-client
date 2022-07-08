@@ -15,6 +15,7 @@
     "vue-gtag": "^2.0.1",
     "vue-masonry": "^0.15.0",
     "vue-router": "^4.0.0-0",
+    "vue-social-sharing": "^4.0.0-alpha4",
     "vue-virtual-scroller": "^2.0.0-alpha.1",
     "vue3-markdown-it": "^1.0.9"
   },
