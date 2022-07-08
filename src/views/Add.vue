@@ -2,7 +2,7 @@
   <div>
     <div class="mx-auto bg-white max-w-screen-2xl">
       <div class="p-4 lg:p-8">
-        <Nav />
+        <Nav :inverted="false" />
 
         <Heading :level="1">
           <span v-if="!isStorySent && counter">
