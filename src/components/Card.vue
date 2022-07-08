@@ -1,5 +1,5 @@
 <template>
-  <div class="card flex flex-col rounded border-gray-400 mb-4 w-full md:w-1/3 lg:w-1/4">
+  <div class="card flex flex-col rounded border-gray-400 mb-8 w-full md:w-1/3 lg:w-1/4">
       <div
         class="leading-relaxed border-2 border-grey rounded"
         v-bind:key="'story-' + item.id"
