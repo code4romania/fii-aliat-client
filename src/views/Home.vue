@@ -48,14 +48,14 @@
           :key="index"
           class="aspect-square"
         >
-          <a v-if="!item.children" :href="'/mesaje/' + item.id">
+          <component :is="item.id ? 'a': 'div'" v-if="!item.children" :href="'/mesaje/' + item.id">
             <img
               :src="item.imageUrl"
               :height="(item * 2).toString() + 'px'"
               class="w-full border-2 border-pink-500 border-solid"
               loading="lazy"
             />
-          </a>
+          </component>
           <div v-else class="grid grid-cols-2 aspect-square">
             <a
               v-for="child in item.children"
@@ -101,32 +101,39 @@ export default {
     page: {
       components: [],
     },
-    assetsIds: [...Array(97)].map((x, i) => {
-      const index = i + 1;
-      console.log(
-        index,
-        index > 55 ? `/assets/${index - 55}.png` : `/assets/${index}.png`
-      );
-      if (index % Math.ceil(Math.random() * 2) === 0) {
-        return {
-          id: index,
-          children: [...Array(4)].map((x, i) => {
-            const childIndex = Math.ceil(Math.random() * 10) + i * 10 + 1;
-            return {
-              id: childIndex,
-              imageUrl: `/assets/${childIndex}.png`,
-            };
-          }),
-        };
-      }
-
-      return {
-        id: index,
-        imageUrl:
-          index > 55 ? `/assets/${index - 55}.png` : `/assets/${index}.png`,
-      };
-    }),
+    stories: [],
+    storiesError: null,
+    storiesLoading: false,
   }),
+  computed: {
+    assetsIds() {
+      return [...Array(97)].map((x, i) => {
+        const index = i + 1;
+        const storiesLength = this.stories.length;
+        const storiesIds = this.stories.map((story)=> story.id)
+        const randomIndex = Math.floor(Math.random() * (storiesLength));
+        const randomId = storiesIds[randomIndex];
+        if (index % Math.ceil(Math.random() * 2) === 0) {
+          return {
+            id: randomId,
+            children: [...Array(4)].map((x, i) => {
+              const childIndex = Math.ceil(Math.random() * 10) + i * 10 + 1;
+              return {
+                id: randomId,
+                imageUrl: `/assets/${childIndex}.png`,
+              };
+            }),
+          };
+        }
+
+        return {
+          id: randomId,
+          imageUrl:
+            index > 55 ? `/assets/${index - 55}.png` : `/assets/${index}.png`,
+        };
+      });
+    },
+  },
   beforeRouteEnter(to, from, next) {
     next((vm) => vm.fetchData());
   },
@@ -144,6 +151,17 @@ export default {
           this.error = err.toString();
         } else {
           this.page = page;
+        }
+      });
+
+      this.storiesError = null;
+      this.storiesLoading = true;
+      api.getStories((err, stories) => {
+        this.storiesLoading = false;
+        if (err) {
+          this.storiesError = err.toString();
+        } else {
+          this.stories = stories;
         }
       });
     },
