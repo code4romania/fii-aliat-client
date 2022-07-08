@@ -3,7 +3,7 @@
     <div v-if="loading" class="my-16">
       <Spinner />
     </div>
-    <div v-if="page" class="flex flex-col sm:min-h-screen">
+    <div v-if="page" class="flex flex-col bg-pink-500 sm:min-h-screen">
       <div
         class="grid grid-cols-2 md:grid-cols-5 xl:grid-cols-9 2xl:grid-cols-11"
       >
