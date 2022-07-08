@@ -3,11 +3,19 @@
     <div class="mx-auto bg-white max-w-screen-2xl">
       <div class="p-4 lg:p-8">
         <Nav />
+
         <Heading :level="1">
-          <span v-if="!isStorySent">Trimite un mesaj de susținere</span>
-          <span v-else>Mulțumim</span>
+          <span v-if="!isStorySent && counter">
+            Îți mulțumim! De acum suntem
+            <div class="text-purple-400 mt-2">{{ counter }} aliați</div>
+          </span>
+          <span v-if="!isStorySent && !counter"
+            >Trimite un mesaj de susținere</span
+          >
+          <span v-if="isStorySent">Mulțumim</span>
         </Heading>
-        <p v-if="!isStorySent" class="max-w-4xl mb-10 text-2xl font-light">
+
+        <p v-if="!isStorySent" class="max-w-4xl mb-10 text-lg font-light">
           Cuvintele îi poveștile vindecă și dau putere. Îți mulțumim că ni te-ai
           alăturat printr-un simplu click. Orice mesaj ne ajută și să mergem mai
           departe la bine și la rău, împreună. Transmite un mesaj de încurajare
@@ -152,126 +160,129 @@
 </template>
 
 <script>
-    import api from '@/api';
-    import reCaptcha from '@/api/reCaptcha';
+import api from '@/api';
+import reCaptcha from '@/api/reCaptcha';
 
-    import { validate } from '@/lib/validate';
-    import { storySchema } from '@/lib/schema';
+import { validate } from '@/lib/validate';
+import { storySchema } from '@/lib/schema';
 
-    import allCounties from '@/data/counties.json';
-    import allCities from '@/data/cities.json';
+import allCounties from '@/data/counties.json';
+import allCities from '@/data/cities.json';
 
-    import Nav from '@/components/Nav';
-    import Heading from '@/components/Heading';
-    import Input from '@/components/Input';
-    import Textarea from '@/components/Textarea';
-    import Select from '@/components/Select';
-    import InputGroup from '@/components/InputGroup';
-    import Checkbox from '@/components/Checkbox';
-    import Spinner from '@/components/Spinner';
+import Nav from '@/components/Nav';
+import Heading from '@/components/Heading';
+import Input from '@/components/Input';
+import Textarea from '@/components/Textarea';
+import Select from '@/components/Select';
+import InputGroup from '@/components/InputGroup';
+import Checkbox from '@/components/Checkbox';
+import Spinner from '@/components/Spinner';
 
-    export default {
-      components: {
-        Nav,
-        InputGroup,
-        Heading,
-        Input,
-        Textarea,
-        Select,
-        Checkbox,
-        reCaptcha,
-        Spinner,
-      },
-      data: () => ({
-        errors: {},
-        story: {
-          name: null,
-          victimLastName: null,
-          age: null,
-          occupation: null,
-          city: 0,
-          county: 0,
-          content: null,
-          authorFirstName: null,
-          authorLastName: null,
-          authorEmail: null,
-          agreeTerms: false,
-          agreeTerms2: false,
-          recaptcha: null,
-        },
-        allCounties,
-        allCities,
-        currentCities: [],
-        showRecaptcha: true,
-        isStorySent: false,
-        isLoading: false,
-      }),
-      computed: {
-        recaptchSiteKey() {
-          return process.env.VUE_APP_SITE_KEY_RECAPTCHA;
-        },
-      },
-      // mounted() {
-      //   document.body.classList.remove("bg-white", "text-black");
-      //   document.body.classList.add("bg-black", "text-white");
-      // },
-      methods: {
-        checkForm: function (e) {
-          e.preventDefault();
+export default {
+  components: {
+    Nav,
+    InputGroup,
+    Heading,
+    Input,
+    Textarea,
+    Select,
+    Checkbox,
+    reCaptcha,
+    Spinner,
+  },
+  data: () => ({
+    errors: {},
+    story: {
+      name: null,
+      victimLastName: null,
+      age: null,
+      occupation: null,
+      city: 0,
+      county: 0,
+      content: null,
+      authorFirstName: null,
+      authorLastName: null,
+      authorEmail: null,
+      agreeTerms: false,
+      agreeTerms2: false,
+      recaptcha: null,
+    },
+    allCounties,
+    allCities,
+    currentCities: [],
+    showRecaptcha: true,
+    isStorySent: false,
+    isLoading: false,
+  }),
+  computed: {
+    recaptchSiteKey() {
+      return process.env.VUE_APP_SITE_KEY_RECAPTCHA;
+    },
+    counter() {
+      return this.$route.query?.counter;
+    },
+  },
+  // mounted() {
+  //   document.body.classList.remove("bg-white", "text-black");
+  //   document.body.classList.add("bg-black", "text-white");
+  // },
+  methods: {
+    checkForm: function (e) {
+      e.preventDefault();
 
-          const validationSchema = this.story.hasLastNamePrivate
-            ? storySchema.filter((schema) => schema.key !== 'victimLastName')
-            : storySchema;
-          const { errors, isValid } = validate(this.story, validationSchema);
+      const validationSchema = this.story.hasLastNamePrivate
+        ? storySchema.filter((schema) => schema.key !== 'victimLastName')
+        : storySchema;
+      const { errors, isValid } = validate(this.story, validationSchema);
 
-          this.errors = errors;
+      this.errors = errors;
 
-          // console.log(this.errors)
-          // console.log(this.story);
+      // console.log(this.errors)
+      // console.log(this.story);
 
-          if (isValid) {
-            this.isLoading = true;
+      if (isValid) {
+        this.isLoading = true;
 
-            api
-              .postStory(this.story)
-              .then((response) => {
-                // debugger;
+        api
+          .postStory(this.story)
+          .then((response) => {
+            // debugger;
 
-                this.isLoading = false;
-                this.isStorySent = true;
-              })
-              .catch((error) => {
-                if (error.response) {
-                  this.isLoading = false;
-                  this.errors = error.response.data.data.errors;
-                }
-              });
-          }
-        },
-        reset() {
-          this.isStorySent = false;
-          this.isLoading = false;
-          this.story = {};
-        },
-        loadCities(county) {
-          this.currentCities = [];
-          this.story.city = 0;
-
-          allCities.forEach((city) => {
-            if (city.county === county) {
-              this.currentCities.push(city);
+            this.isLoading = false;
+            this.isStorySent = true;
+          })
+          .catch((error) => {
+            if (error.response) {
+              this.isLoading = false;
+              this.errors = error.response.data.data.errors;
             }
           });
-        },
-        reCaptchaVerified(response) {
-          this.story.recaptcha = response;
-        },
-        recaptchaExpired() {
-          this.$refs.reCaptcha.reset();
-        },
-        recaptchaFailed(err) {
-          console.log('captch failed', err);
-        },
-      },
-    };
+      }
+    },
+    reset() {
+      this.isStorySent = false;
+      this.isLoading = false;
+      this.story = {};
+    },
+    loadCities(county) {
+      this.currentCities = [];
+      this.story.city = 0;
+
+      allCities.forEach((city) => {
+        if (city.county === county) {
+          this.currentCities.push(city);
+        }
+      });
+    },
+    reCaptchaVerified(response) {
+      this.story.recaptcha = response;
+    },
+    recaptchaExpired() {
+      this.$refs.reCaptcha.reset();
+    },
+    recaptchaFailed(err) {
+      console.log('captch failed', err);
+    },
+  },
+};
 </script>

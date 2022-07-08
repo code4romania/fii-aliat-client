@@ -15,7 +15,7 @@
           'h' + this.level, // tag name
           {
             class:
-              'relative inline-block leading-tight  my-5 py-3 text-3xl ' +
+              'relative inline-block leading-tight  my-5 py-3' +
               fontSize(this.level),
           }, // props/attributes
           this.$slots.default() // array of children

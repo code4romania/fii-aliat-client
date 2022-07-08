@@ -1,6 +1,6 @@
 <template>
   <div class="md:p-4 lg:p-8">
-    <Nav />
+    <Nav :inverted="false"/>
     <router-link
       to="/"
       class="relative inline-block py-3 my-5 font-light pl-14 text-7xl"

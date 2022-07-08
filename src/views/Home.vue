@@ -81,6 +81,7 @@
 import Markdown from 'vue3-markdown-it';
 
 import api from '@/api';
+import router from "@/router";
 import MadeBy from '@/components/MadeBy';
 import Nav from '@/components/Nav';
 import Spinner from '@/components/Spinner';
@@ -125,10 +126,6 @@ export default {
     this.fetchData();
     next();
   },
-  // mounted() {
-  //   document.body.classList.remove("bg-white", "text-black");
-  //   document.body.classList.add("bg-black", "text-white");
-  // },
   methods: {
     fetchData() {
       this.error = this.page = null;
@@ -143,8 +140,10 @@ export default {
       });
     },
     onClick() {
-      api.post('/counter/increment', null).then((err, res) => {
-        location.reload();
+      api.post('/counter/increment', null).then((res) => {
+        if(res?.data?.count){
+          router.push({ path: '/trimite-un-mesaj', query: { counter: res?.data?.count} })
+        }
       });
     },
   },
