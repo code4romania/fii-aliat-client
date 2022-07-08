@@ -12,8 +12,11 @@
           <span v-if="!isStorySent && !counter"
             >Trimite un mesaj de susținere</span
           >
-          <span v-if="isStorySent">>Mulțumim.
-            <span class="block text-purple-400 mt-2">Ai trimis mesajul cu succes</span>
+          <span v-if="isStorySent"
+            >Mulțumim.
+            <span class="block text-purple-400 mt-2"
+              >Ai trimis mesajul cu succes</span
+            >
           </span>
         </Heading>
 
