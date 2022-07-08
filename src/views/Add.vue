@@ -25,7 +25,6 @@
           a le da curaj.
         </p>
         <div v-if="isStorySent" class="max-w-xl mb-10">
-          <div class="mb-8 text-4xl">Ai trimis povestea.</div>
           <div class="text-lg">
             <div class="mb-4">
               Imediat ce va fi aprobat de un moderator mesajul tău va fi
