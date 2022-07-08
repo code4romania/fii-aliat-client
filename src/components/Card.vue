@@ -1,43 +1,45 @@
 <template>
-  <div class="card flex flex-col rounded border-gray-400 mb-8 w-full md:w-1/3 lg:w-1/4">
+  <div class="w-full p-4 pb-8 card sm:w-1/2 md:w-1/3 xl:w-1/4">
+    <div class="flex flex-col border-gray-400 rounded">
       <div
-        class="leading-relaxed border-2 border-grey rounded"
+        class="leading-relaxed border-2 rounded border-grey"
         v-bind:key="'story-' + item.id"
       >
-        <img class="mx-auto -mt-5" src="/assets/rainbow.png" loading="lazy" />
-        <div class="text-2xl my-4 px-8 text-center">
-            {{ item.name }}<span v-show="item.age" class="font-thin">, {{ item.age }}</span>
-            <span v-show="item.occupation">
-              , {{ item.occupation }}
-            </span>
-          </div>
-          <img :src="'/assets/' + item.id % 55 + '.png'" class="w-20 mx-auto rounded-full" />
-          <div class="bg-neutral-100 p-8 mt-4 text-neutral-500">
-            <p>{{item.content}}</p>
-            <ShareNetwork
-              class="block bg-blue-500 mt-8 text-white text-center rounded-lg py-2"
-              network="facebook"
-              :url="'https://fiialiat.ro/mesaje/' + item.id"
-              title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
-              description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
-              quote="The hot reload is so fast it\'s near instant. - Evan You"
-              hashtags="vuejs,vite"
-            >
-              Share on social media
-            </ShareNetwork>
-          </div>
+        <div class="flex items-center justify-center h-8 -mt-4">
+          <img class="max-w-[75%]" src="/assets/rainbow.png" loading="lazy" />
+        </div>
+        <div class="px-8 my-4 text-2xl text-center">
+          {{ item.name
+          }}<span v-show="item.age" class="font-thin">, {{ item.age }}</span>
+          <span v-show="item.occupation">, {{ item.occupation }} </span>
+        </div>
+        <img
+          :src="'/assets/' + (item.id % 55) + '.png'"
+          class="w-20 mx-auto rounded-full"
+        />
+        <div class="p-8 mt-4 bg-neutral-100 text-neutral-500">
+          <p>{{ item.content }}</p>
+          <ShareNetwork
+            class="block py-2 mt-8 text-center text-white bg-blue-500 rounded-lg"
+            network="facebook"
+            :url="'https://fiialiat.ro/mesaje/' + item.id"
+          >
+            Share on social media
+          </ShareNetwork>
+        </div>
       </div>
+    </div>
   </div>
 </template>
 
 <script>
-    export default {
-      name: 'Card',
-      props: {
-        item: {
-          type: Object,
-          default: null,
-        },
-      },
-    };
+export default {
+  name: 'Card',
+  props: {
+    item: {
+      type: Object,
+      default: null,
+    },
+  },
+};
 </script>

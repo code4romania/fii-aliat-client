@@ -6,26 +6,34 @@
     </div>
     <div v-if="page">
       <div v-for="component in page.components" v-bind:key="component.id">
-        <div class="mx-auto container px-4">
+        <div class="container px-4 mx-auto">
           <div>
-              <Jumbotron
-                :title="component.title"
-                :content="component.content"
-                :buttons="component.buttons"
-                :list="list"
-                :gallery="gallery"
-                :onSwitchView="handleSwitchView"
-              />
+            <Jumbotron
+              :title="component.title"
+              :content="component.content"
+              :buttons="component.buttons"
+              :list="list"
+              :gallery="gallery"
+              :onSwitchView="handleSwitchView"
+            />
 
             <div class="col-span-full lg:relative lg:col-span-5">
-
-              <div v-masonry="containerId" transition-duration="0.3s" :column-width="100" item-selector=".card">
-                  <Card :item="item" v-masonry-tile v-for="item in storiesList"/>
+              <div
+                v-masonry="containerId"
+                transition-duration="0.3s"
+                item-selector=".card"
+              >
+                <Card
+                  :item="item"
+                  v-masonry-tile
+                  v-for="(item, index) in storiesList"
+                  :key="index"
+                />
               </div>
 
-<!--              <div class="grid grid-cols-3 gap-2">-->
-<!--                <Card :item="story" v-for="story in storiesList" />-->
-<!--              </div>-->
+              <!--              <div class="grid grid-cols-3 gap-2">-->
+              <!--                <Card :item="story" v-for="story in storiesList" />-->
+              <!--              </div>-->
             </div>
           </div>
         </div>
@@ -35,114 +43,112 @@
 </template>
 
 <script>
-    import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
-    import api from '@/api';
-    import shuffle from '@/lib/shuffle';
-    import Spinner from '@/components/Spinner.vue';
-    import Item from '@/components/Item.vue';
-    import Card from '@/components/Card.vue';
-    import Jumbotron from '../components/Jumbotron';
-    import Detail from '../views/Detail';
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
+import api from '@/api';
+import shuffle from '@/lib/shuffle';
+import Spinner from '@/components/Spinner.vue';
+import Item from '@/components/Item.vue';
+import Card from '@/components/Card.vue';
+import Jumbotron from '../components/Jumbotron';
+import Detail from '../views/Detail';
 
-    export default {
-      name: 'Listing',
-      components: {
-        Detail,
-        Jumbotron,
-        Spinner,
-        Item,
-        Card,
-      },
-      data: () => {
-        return {
-          list: false,
-          gallery: true,
-          stories: [],
-          storiesError: null,
-          storiesLoading: false,
-          page: null,
-          pageError: null,
-          pageLoading: false,
-          banners: [],
-          bannersError: null,
-          bannersLoading: false,
-          nextStoryId: null,
-        };
-      },
-      computed: {
-        storyId: function () {
-          return this.$route.params.storyId;
-        },
-        bannersList: function () {
-          return this.banners.reduce(
-            (o, key) => ({
-              ...o,
-              [key.index]: {
-                content: key.content,
-              },
-            }),
-            {}
-          );
-        },
-        storiesList: function () {
-          const victimsCount = 54.223; // TODO: fix this
-
-          const list = this.stories.map((story) => ({
-            id: story.id,
-            name: story.name,
-            age: story.age,
-            occupation: story.occupation,
-            content: story.content
-          }));
-
-          const rows =
-            this.stories.length > 0 &&
-            victimsCount &&
-            shuffle([...list])
-
-          return rows;
-        },
-      },
-      mounted() {
-        this.pageError = null;
-        this.pageLoading = true;
-        api.getPage('listing', (err, page) => {
-          this.pageLoading = false;
-          if (err) {
-            this.pageError = err.toString();
-          } else {
-            this.page = page;
-          }
-        });
-
-        this.storiesError = null;
-        this.storiesLoading = true;
-        api.getStories((err, stories) => {
-          this.storiesLoading = false;
-          if (err) {
-            this.storiesError = err.toString();
-          } else {
-            this.stories = stories;
-          }
-        });
-      },
-      methods: {
-        handleSwitchView({ list, gallery }) {
-          this.list = list;
-          this.gallery = gallery;
-        },
-      },
-      watch: {
-        $route() {
-          const random = Math.floor(Math.random() * this.stories.length);
-          this.nextStoryId = this.stories[random] && this.stories[random].id;
-        },
-        stories(val) {
-          const random = Math.floor(Math.random() * val.length);
-          this.nextStoryId = val[random] && val[random].id;
-        },
-      },
+export default {
+  name: 'Listing',
+  components: {
+    Detail,
+    Jumbotron,
+    Spinner,
+    Item,
+    Card,
+  },
+  data: () => {
+    return {
+      list: false,
+      gallery: true,
+      stories: [],
+      storiesError: null,
+      storiesLoading: false,
+      page: null,
+      pageError: null,
+      pageLoading: false,
+      banners: [],
+      bannersError: null,
+      bannersLoading: false,
+      nextStoryId: null,
     };
+  },
+  computed: {
+    storyId: function () {
+      return this.$route.params.storyId;
+    },
+    bannersList: function () {
+      return this.banners.reduce(
+        (o, key) => ({
+          ...o,
+          [key.index]: {
+            content: key.content,
+          },
+        }),
+        {}
+      );
+    },
+    storiesList: function () {
+      const victimsCount = 54.223; // TODO: fix this
+
+      const list = this.stories.map((story) => ({
+        id: story.id,
+        name: story.name,
+        age: story.age,
+        occupation: story.occupation,
+        content: story.content,
+      }));
+
+      const rows =
+        this.stories.length > 0 && victimsCount && shuffle([...list]);
+
+      return rows;
+    },
+  },
+  mounted() {
+    this.pageError = null;
+    this.pageLoading = true;
+    api.getPage('listing', (err, page) => {
+      this.pageLoading = false;
+      if (err) {
+        this.pageError = err.toString();
+      } else {
+        this.page = page;
+      }
+    });
+
+    this.storiesError = null;
+    this.storiesLoading = true;
+    api.getStories((err, stories) => {
+      this.storiesLoading = false;
+      if (err) {
+        this.storiesError = err.toString();
+      } else {
+        this.stories = stories;
+      }
+    });
+  },
+  methods: {
+    handleSwitchView({ list, gallery }) {
+      this.list = list;
+      this.gallery = gallery;
+    },
+  },
+  watch: {
+    $route() {
+      const random = Math.floor(Math.random() * this.stories.length);
+      this.nextStoryId = this.stories[random] && this.stories[random].id;
+    },
+    stories(val) {
+      const random = Math.floor(Math.random() * val.length);
+      this.nextStoryId = val[random] && val[random].id;
+    },
+  },
+};
 </script>
 
 <!--<style>-->
