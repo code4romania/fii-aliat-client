@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full p-4 pb-8 card sm:w-1/2 md:w-1/3 xl:w-1/4">
-    <div class="flex flex-col border-gray-400 rounded">
+  <div class="w-full p-6 pb-8 card">
+    <div class="flex flex-col border-gray-400 rounded bg-white">
       <div
         class="leading-relaxed border-2 rounded border-grey"
         v-bind:key="'story-' + item.id"

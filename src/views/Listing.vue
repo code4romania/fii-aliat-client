@@ -6,7 +6,7 @@
     </div>
     <div v-if="page">
       <div v-for="component in page.components" v-bind:key="component.id">
-        <div class="container px-4 mx-auto">
+        <div class="container px-4 mx-auto overflow-hidden h-screen">
           <div>
             <Jumbotron
               :title="component.title"
@@ -24,6 +24,7 @@
                 item-selector=".card"
               >
                 <Card
+                  class="sm:w-1/2 md:w-1/3 xl:w-1/4"
                   :item="item"
                   v-masonry-tile
                   v-for="(item, index) in storiesList"

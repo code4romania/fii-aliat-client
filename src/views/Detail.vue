@@ -1,22 +1,20 @@
 <template>
   <div
-    class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full text-black bg-white"
+    class="fixed top-0 left-0 z-50  items-center justify-center w-full h-full text-black bg-white bg-opacity-75	overflow-auto"
   >
     <div v-if="storyLoading" class="my-16">
       <Spinner />
     </div>
     <div
-      class="fixed z-50 w-full h-full mx-auto overflow-y-auto max-w-screen-2xl"
       v-if="story"
+      class="flex justify-center mt-24 md:mt-0 md:items-center h-full max-w-3xl mx-auto"
     >
-      <div class="grid grid-cols-8">
         <div class="col-span-full">
           <div class="p-4 lg:p-8">
-            <div class="flex items-center justify-between mb-8">
-              <Nav :inverted="false" :nextStoryId="nextStoryId" />
+            <div class="flex items-center justify-end -mb-16 mr-10">
               <router-link
                 to="/mesaje"
-                class="relative w-12 h-12 cursor-pointer"
+                class="relative w-6 h-6 cursor-pointer"
               >
                 <span
                   class="absolute top-0 left-0 bottom-0 right-0 m-auto transform origin-center block w-full h-0.5 bg-black rotate-45"
@@ -27,43 +25,9 @@
                 ></span>
               </router-link>
             </div>
-
-            <div class="max-w-4xl mb-32">
-              <div
-                class="relative block w-full pt-3 pb-0 mt-5 mb-2 text-5xl font-light leading-tight lg:text-7xl"
-              >
-                <div
-                  class="mb-4 font-sans text-xs tracking-wide text-gray-500 uppercase"
-                >
-                  {{ story.city }}, {{ story.county }}
-                </div>
-                <div class="mb-4">
-                  {{
-                    `
-                    ${story.name}${
-                      typeof story.name !== 'undefined' ? ' ' + story.name : ''
-                    }, ${story.age}`
-                  }}
-                </div>
-                <div class="mb-8 text-xl">
-                  <div class="inline-block">{{ story.occupation }}</div>
-                </div>
-              </div>
-
-              <!-- <div class="max-w-2xl mb-8 filter grayscale"> -->
-              <!-- NEED HELP HERE: For some reason process.env.VUE_APP_API won't render here, tried a computed value also, process.env is an empty object in that case -->
-              <!-- {{process.env.VUE_APP_API}} -->
-              <!-- <img :src="'http://localhost:1337' + story.image.url"> -->
-              <!-- <img src="https://picsum.photos/id/1005/900/450" /> -->
-              <!-- </div> -->
-
-              <div class="text-lg leading-relaxed content-wrap">
-                <Markdown :source="story.content" />
-              </div>
-            </div>
+            <Card :item="story" />
           </div>
         </div>
-      </div>
     </div>
   </div>
 </template>
@@ -73,6 +37,7 @@ import Markdown from 'vue3-markdown-it';
 
 import api from '@/api';
 
+import Card from '@/components/Card';
 import Heading from '@/components/Heading';
 import MadeBy from '@/components/MadeBy';
 import Nav from '@/components/Nav';
@@ -85,6 +50,7 @@ export default {
     MadeBy,
     Nav,
     Spinner,
+    Card
   },
   name: 'Detail',
   props: {
