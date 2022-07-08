@@ -1,13 +1,13 @@
 <template>
   <div class="flex flex-col gap-8 lg:flex-row lg:items-center xl:gap-16">
-    <div class="flex items-end w-full gap-2 lg:w-auto shrink-0">
+    <div class="flex items-end w-full gap-3 lg:w-auto shrink-0">
       <router-link to="/" class="block">
         <img src="/fiialiat.png" class="block w-[68px] h-10" alt="" />
       </router-link>
       <span class="leading-none">by</span>
-      <router-link to="https://code4.ro/" class="block h-10">
+      <a href="https://code4.ro/" class="block h-10">
         <img src="/code4romania.svg" class="block h-10" alt="" />
-      </router-link>
+      </a>
     </div>
 
     <div class="flex w-full space-x-5 md:space-x-10">
