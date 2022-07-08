@@ -7,12 +7,14 @@
         <Heading :level="1">
           <span v-if="!isStorySent && counter">
             Îți mulțumim! De acum suntem
-            <div class="text-purple-400 mt-2">{{ counter }} aliați</div>
+            <span class="block text-purple-400 mt-2">{{ counter }} aliați</span>
           </span>
           <span v-if="!isStorySent && !counter"
             >Trimite un mesaj de susținere</span
           >
-          <span v-if="isStorySent">Mulțumim</span>
+          <span v-if="isStorySent">>Mulțumim.
+            <span class="block text-purple-400 mt-2">Ai trimis mesajul cu succes</span>
+          </span>
         </Heading>
 
         <p v-if="!isStorySent" class="max-w-4xl mb-10 text-lg font-light">
@@ -23,42 +25,30 @@
           a le da curaj.
         </p>
         <div v-if="isStorySent" class="max-w-xl mb-10">
-          <div class="mb-8 text-6xl font-thin">Ai trimis povestea.</div>
-          <div class="text-lg font-thin">
+          <div class="mb-8 text-4xl">Ai trimis povestea.</div>
+          <div class="text-lg">
             <div class="mb-4">
-              Povestea ta a fost trimisă către echipa noastră.
-            </div>
-            <div class="mb-4">
-              Te vom contacta în scurt timp pentru a ne asigura că toate datele
-              pe care le-am primit sunt corecte.
-            </div>
-            <div class="mb-4">
-              Te anunțăm că este posibil ca povestea pe care ai scris-o să
-              sufere mici modificări la editare, fără să îi fie alterat în vreun
-              fel sensul. Din acest motiv, te rugăm să ne permiți câteva zile
-              până la publicarea ei. Pentru orice clarificări, ne poți contacta
-              la
-              <a href="mailto:vietipierdute@code4.ro" class="underline"
-                >vietipierdute@code4.ro</a
-              >
+              Imediat ce va fi aprobat de un moderator mesajul tău va fi
+              publicat pe platforma FiiAliat. Ne bucurăm că ești alături de
+              comunitatea LGBTQ+.
             </div>
           </div>
           <ul class="mt-12 mb-8">
-            <li>
-              <a
-                @click="reset"
-                class="inline-block py-3 mb-2 text-2xl font-light cursor-pointer lg:text-xl xl:text-2xl"
-              >
-                <span class="underline">Adaugă altă poveste</span>
-              </a>
-            </li>
             <li>
               <router-link
                 to="/povesti"
                 class="inline-block py-3 mb-2 text-2xl font-light lg:text-xl xl:text-2xl"
               >
-                <span class="underline">Descoperă toate poveștile</span>
+                <span class="underline">Descoperă toate mesajele</span>
               </router-link>
+            </li>
+            <li>
+              <a
+                @click="reset"
+                class="inline-block py-3 mb-2 text-2xl font-light cursor-pointer lg:text-xl xl:text-2xl"
+              >
+                <span class="underline">Trimite un mesaj de susținere</span>
+              </a>
             </li>
           </ul>
         </div>

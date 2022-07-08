@@ -3,7 +3,7 @@
 
     const fontSize = (level) => {
       if (level === 1) {
-        return 'font-light text-5xl';
+        return 'font-light text-4xl';
       } else if (level === 2) {
         return 'text-3xl';
       }
