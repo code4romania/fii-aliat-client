@@ -3,12 +3,9 @@
     <Nav :inverted="false"/>
     <router-link
       to="/"
-      class="relative inline-block py-3 my-5 font-light pl-14 text-7xl"
+      class="relative inline-block py-3 my-5 font-light text-4xl"
       v-if="title"
     >
-      <span
-        class="absolute top-0 bottom-0 my-auto transform rotate-45 border-b-2 border-l-2 border-white left-2 w-9 h-9"
-      ></span>
       {{ title }}
     </router-link>
 

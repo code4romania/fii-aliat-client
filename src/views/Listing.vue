@@ -6,7 +6,7 @@
     </div>
     <div v-if="page">
       <div v-for="component in page.components" v-bind:key="component.id">
-        <div class="mx-auto container">
+        <div class="mx-auto container px-4">
           <div>
               <Jumbotron
                 :title="component.title"
