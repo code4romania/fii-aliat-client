@@ -14,7 +14,7 @@
           <span v-show="item.occupation">, {{ item.occupation }} </span>
         </div>
         <img
-          :src="'/assets/' + (item.id % 55) + '.png'"
+          :src="'/assets/' + ((item.id % 55) + 1) + '.png'"
           class="w-20 mx-auto rounded-full"
         />
         <div class="p-8 mt-4 bg-neutral-100 text-neutral-500">
