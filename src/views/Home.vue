@@ -10,7 +10,7 @@
         <div
           class="flex flex-col items-center col-span-2 bg-white justify-items-stretch md:col-span-3 md:row-span-4 xl:row-span-5 xl:col-span-4"
         >
-          <div class="w-full max-w-2xl pt-6">
+          <div class="w-full max-w-2xl px-4 pt-6 md:px-8">
             <Nav :inverted="false" />
           </div>
 
@@ -34,10 +34,9 @@
                     v-if="button.href"
                     :to="button.href"
                     class="inline-block py-3 mb-2 text-2xl font-light lg:text-xl xl:text-2xl"
-                    ><span class="underline">{{
-                      button.text
-                    }}</span></router-link
                   >
+                    <span class="underline">{{ button.text }}</span>
+                  </router-link>
                 </li>
               </ul>
             </div>
@@ -81,7 +80,7 @@
 import Markdown from 'vue3-markdown-it';
 
 import api from '@/api';
-import router from "@/router";
+import router from '@/router';
 import MadeBy from '@/components/MadeBy';
 import Nav from '@/components/Nav';
 import Spinner from '@/components/Spinner';
@@ -141,8 +140,11 @@ export default {
     },
     onClick() {
       api.post('/counter/increment', null).then((res) => {
-        if(res?.data?.count){
-          router.push({ path: '/trimite-un-mesaj', query: { counter: res?.data?.count} })
+        if (res?.data?.count) {
+          router.push({
+            path: '/trimite-un-mesaj',
+            query: { counter: res?.data?.count },
+          });
         }
       });
     },
