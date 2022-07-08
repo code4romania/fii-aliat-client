@@ -18,12 +18,12 @@
         Despre proiect
       </router-link>
 
-      <router-link
-        to="/donate"
+      <a
+        href="https://code4.ro/ro/doneaza"
         class="font-medium text-gray-500 hover:text-gray-900"
       >
         Donează
-      </router-link>
+      </a>
 
       <router-link
         v-show="nextStoryId"
