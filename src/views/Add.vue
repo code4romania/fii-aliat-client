@@ -120,7 +120,6 @@
               v-if="showRecaptcha"
               :siteKey="recaptchSiteKey"
               size="normal"
-              theme="dark"
               locale="ro"
               ref="reCaptcha"
               v-model="story.reCaptcha"
