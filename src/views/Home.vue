@@ -3,10 +3,12 @@
     <div v-if="loading" class="my-16">
       <Spinner />
     </div>
-    <div v-if="page" class="flex flex-col sm:h-screen sm:overflow-hidden">
-      <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6">
+    <div v-if="page" class="flex flex-col sm:min-h-screen">
+      <div
+        class="grid grid-cols-2 md:grid-cols-5 xl:grid-cols-9 2xl:grid-cols-11"
+      >
         <div
-          class="flex flex-col items-center col-span-2 bg-white justify-items-stretch md:col-span-3 md:row-span-4 xl:row-span-3"
+          class="flex flex-col items-center col-span-2 bg-white justify-items-stretch md:col-span-3 md:row-span-4 xl:row-span-5 xl:col-span-4"
         >
           <div class="w-full max-w-2xl pt-6">
             <Nav :inverted="false" />
@@ -24,7 +26,7 @@
                 class="max-w-2xl prose md:prose-lg lg:prose-xl"
               />
               <div class="pt-8">
-                <PrideButton @click.once="onClick"/>
+                <PrideButton @click.once="onClick" />
               </div>
               <ul v-if="component.buttons" class="pt-4 bg-white">
                 <li v-for="button in component.buttons" v-bind:key="button.id">
@@ -51,24 +53,24 @@
             <img
               :src="item.imageUrl"
               :height="(item * 2).toString() + 'px'"
-              class="w-full"
+              class="w-full border-2 border-pink-500 border-solid"
               loading="lazy"
             />
           </a>
-            <div v-else class="grid grid-cols-2 aspect-square">
-              <a
-                v-for="child in item.children"
-                :key="child.id"
-                :href="'/mesaje/' + child.id"
-                class="aspect-square"
-              >
-                <img
-                  :src="child.imageUrl"
-                  class="w-full"
-                  loading="lazy"
-                />
-              </a>
-            </div>
+          <div v-else class="grid grid-cols-2 aspect-square">
+            <a
+              v-for="child in item.children"
+              :key="child.id"
+              :href="'/mesaje/' + child.id"
+              class="aspect-square"
+            >
+              <img
+                :src="child.imageUrl"
+                class="w-full border-2 border-pink-500 border-solid"
+                loading="lazy"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -82,7 +84,7 @@ import api from '@/api';
 import MadeBy from '@/components/MadeBy';
 import Nav from '@/components/Nav';
 import Spinner from '@/components/Spinner';
-import PrideButton from '@/components/PrideButton'
+import PrideButton from '@/components/PrideButton';
 
 export default {
   name: 'Home',
@@ -91,7 +93,7 @@ export default {
     MadeBy,
     Nav,
     Spinner,
-    PrideButton
+    PrideButton,
   },
   data: () => ({
     loading: false,
@@ -101,16 +103,17 @@ export default {
     },
     assetsIds: [...Array(50)].map((x, i) => {
       const index = i + 1;
-      if(index % Math.ceil(Math.random() * 2) === 0){
-        return { id: index, children:
-          [...Array(4)].map((x, i)=>{
+      if (index % Math.ceil(Math.random() * 2) === 0) {
+        return {
+          id: index,
+          children: [...Array(4)].map((x, i) => {
             const childIndex = Math.ceil(Math.random() * 10) + i * 10 + 1;
-            return ({
+            return {
               id: childIndex,
-              imageUrl: `/assets/${childIndex}.png`
-            })
-          })
-          }
+              imageUrl: `/assets/${childIndex}.png`,
+            };
+          }),
+        };
       }
       return { id: index, imageUrl: `/assets/${index}.png` };
     }),
@@ -139,11 +142,11 @@ export default {
         }
       });
     },
-    onClick(){
-      api.post('/counter/increment',null ).then((err, res)=> {
-        location.reload()
-      })
-    }
+    onClick() {
+      api.post('/counter/increment', null).then((err, res) => {
+        location.reload();
+      });
+    },
   },
 };
 </script>
