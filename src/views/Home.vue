@@ -101,8 +101,12 @@ export default {
     page: {
       components: [],
     },
-    assetsIds: [...Array(50)].map((x, i) => {
+    assetsIds: [...Array(97)].map((x, i) => {
       const index = i + 1;
+      console.log(
+        index,
+        index > 55 ? `/assets/${index - 55}.png` : `/assets/${index}.png`
+      );
       if (index % Math.ceil(Math.random() * 2) === 0) {
         return {
           id: index,
@@ -115,7 +119,12 @@ export default {
           }),
         };
       }
-      return { id: index, imageUrl: `/assets/${index}.png` };
+
+      return {
+        id: index,
+        imageUrl:
+          index > 55 ? `/assets/${index - 55}.png` : `/assets/${index}.png`,
+      };
     }),
   }),
   beforeRouteEnter(to, from, next) {
