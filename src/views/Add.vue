@@ -43,7 +43,7 @@
           <ul class="mt-12 mb-8">
             <li>
               <router-link
-                to="/povesti"
+                to="/mesaje"
                 class="inline-block py-3 mb-2 text-2xl font-light lg:text-xl xl:text-2xl"
               >
                 <span class="underline">Descoperă toate mesajele</span>
@@ -68,7 +68,7 @@
         >
           <InputGroup>
             <Input
-              placeholder="prenume sau initiala"
+              placeholder="prenume sau inițială"
               name="name"
               :error="this.errors.name"
               v-model="story.name"

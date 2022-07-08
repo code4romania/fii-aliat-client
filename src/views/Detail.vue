@@ -15,7 +15,7 @@
             <div class="flex items-center justify-between mb-8">
               <Nav :inverted="false" :nextStoryId="nextStoryId" />
               <router-link
-                to="/povesti"
+                to="/mesaje"
                 class="relative w-12 h-12 cursor-pointer"
               >
                 <span
@@ -69,59 +69,59 @@
 </template>
 
 <script>
-    import Markdown from 'vue3-markdown-it';
+import Markdown from 'vue3-markdown-it';
 
-    import api from '@/api';
+import api from '@/api';
 
-    import Heading from '@/components/Heading';
-    import MadeBy from '@/components/MadeBy';
-    import Nav from '@/components/Nav';
-    import Spinner from '@/components/Spinner';
+import Heading from '@/components/Heading';
+import MadeBy from '@/components/MadeBy';
+import Nav from '@/components/Nav';
+import Spinner from '@/components/Spinner';
 
-    export default {
-      components: {
-        Markdown,
-        Heading,
-        MadeBy,
-        Nav,
-        Spinner,
-      },
-      name: 'Detail',
-      props: {
-        nextStoryId: {
-          type: String,
-        },
-      },
-      data: () => ({
-        story: null,
-        storyError: null,
-        storyLoading: false,
-      }),
-      created() {
-        // fetch the data when the view is created and the data is
-        // already being observed
-        this.fetchData();
-      },
-      watch: {
-        // call again the method if the route changes
-        $route: 'fetchData',
-      },
-      methods: {
-        fetchData() {
-          this.story = null;
-          this.storyError = null;
-          this.storyLoading = true;
-          if (this.$route.params.storyId) {
-            api.getStory(this.$route.params.storyId, (err, story) => {
-              this.storyLoading = false;
-              if (err) {
-                this.storyError = err.toString();
-              } else {
-                this.story = story;
-              }
-            });
+export default {
+  components: {
+    Markdown,
+    Heading,
+    MadeBy,
+    Nav,
+    Spinner,
+  },
+  name: 'Detail',
+  props: {
+    nextStoryId: {
+      type: String,
+    },
+  },
+  data: () => ({
+    story: null,
+    storyError: null,
+    storyLoading: false,
+  }),
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData();
+  },
+  watch: {
+    // call again the method if the route changes
+    $route: 'fetchData',
+  },
+  methods: {
+    fetchData() {
+      this.story = null;
+      this.storyError = null;
+      this.storyLoading = true;
+      if (this.$route.params.storyId) {
+        api.getStory(this.$route.params.storyId, (err, story) => {
+          this.storyLoading = false;
+          if (err) {
+            this.storyError = err.toString();
+          } else {
+            this.story = story;
           }
-        },
-      },
-    };
+        });
+      }
+    },
+  },
+};
 </script>
