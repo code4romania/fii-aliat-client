@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-8 lg:flex-row lg:items-center xl:gap-16">
+  <div class="flex flex-col gap-8 lg:flex-row lg:items-center xl:gap-16 bg-white">
     <div class="flex items-end w-full gap-3 lg:w-auto shrink-0">
       <router-link to="/" class="block">
         <img src="/fiialiat.png" class="block w-[68px] h-10" alt="" />

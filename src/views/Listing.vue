@@ -6,7 +6,7 @@
     </div>
     <div v-if="page">
       <div v-for="component in page.components" v-bind:key="component.id">
-        <div class="container px-4 mx-auto overflow-hidden h-screen">
+        <div :class="storyId ? 'container px-4 mx-auto overflow-hidden h-screen -mt-14 translate-x-4' :'container px-4 mx-auto ' ">
           <div>
             <Jumbotron
               :title="component.title"
@@ -31,10 +31,6 @@
                   :key="index"
                 />
               </div>
-
-              <!--              <div class="grid grid-cols-3 gap-2">-->
-              <!--                <Card :item="story" v-for="story in storiesList" />-->
-              <!--              </div>-->
             </div>
           </div>
         </div>
