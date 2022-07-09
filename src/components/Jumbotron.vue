@@ -1,13 +1,12 @@
 <template>
   <div class="px-4 pt-6 md:px-8">
     <Nav :inverted="false" />
-    <router-link
-      to="/"
+    <div
       class="relative inline-block py-3 mt-16 mb-4 text-2xl font-light sm:text-3xl md:text-4xl"
       v-if="title"
     >
       {{ title }}
-    </router-link>
+    </div>
 
     <Markdown :source="content" class="mb-8 prose md:prose-lg" />
 
