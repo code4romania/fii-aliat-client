@@ -22,7 +22,7 @@ const getMany = (path, cb) =>
 const post = (path, body) => axios.post(BASE_URL + path, body);
 
 const getPage = (slug, cb) => getOne(`/pages?slug=${slug}`, cb, true);
-const getStories = (cb) => getMany('/stories', cb);
+const getStories = (cb) => getMany('/stories?_limit=1000', cb);
 const getStory = (id, cb) => getOne(`/stories/${id}`, cb);
 const getBanners = (cb) => getMany('/banners', cb);
 const postStory = (body) => post('/stories', body);
